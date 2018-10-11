@@ -66,7 +66,9 @@ public class WssService extends Service {
         }
         try {
             int listeningPort = getResources().getInteger(R.integer.listeningPort);
-            server = new SimpleHttpServer(listeningPort, new MyHttpRequestHandler());
+            server = new SimpleHttpServer(listeningPort);
+            server.addHandler(new StaticContentHandler(getAssets()));
+            server.addHandler(new MyHttpRequestHandler());
             final KeyStore keyStore = getKeyStore();
             final KeyManagerFactory keyManagerFactory = getKeyManagerFactory(keyStore);
             server.makeSecure(NanoHTTPD.makeSSLSocketFactory(keyStore, keyManagerFactory), null);
