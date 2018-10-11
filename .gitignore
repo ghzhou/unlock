@@ -10,4 +10,5 @@
 .externalNativeBuild
 /app/src/main/res/raw/keystore.jks
 /app/src/main/res/values/config.xml
+/app/release/
 
