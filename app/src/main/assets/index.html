@@ -1,5 +1,39 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1>Hello world!!!</h1>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>My Home</title>
+    <style type="text/css">
+    .digit {
+         background-color: green;
+         border-radius: 100px;
+         display: inline-block;
+         font-size: 120px;
+         height: 200px;
+         line-height: 200px;
+         margin: 60px;
+         text-align: center;
+         width: 200px;
+    }
+    .digit:hover {
+        background-color: lightgreen
+    }
+    </style>
+</head>
+<body>
+
+<!-- We will put our React component inside this div. -->
+<div id="app_container" style="margin-top:100px"></div>
+
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<!--<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>-->
+<!--<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>-->
+<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+<!-- Load our React component. -->
+<script src="app.js"></script>
+
+</body>
 </html>
