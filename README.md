@@ -7,3 +7,13 @@ app/src/main/res/values/config.xml
 
 the keystore can be generated use key store explorer, kse-540.zip.
 
+sample of a config.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="targetIpAddress">...</string>
+    <integer name="targetPort">...</integer>
+    <integer name="listeningPort">...</integer>
+    <string name="key">...</string>
+    <string name="keyStorePassword">...</string>
+</resources>

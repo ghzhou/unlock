@@ -30,7 +30,7 @@ public class WssService extends Service {
     private static SimpleHttpServer server = null;
     private char[] keyStorePassword;
     private String TAG = WssService.class.getName();
-    private  int targetPort;
+    private int targetPort;
 
     public WssService() {
     }
@@ -194,19 +194,12 @@ public class WssService extends Service {
     private class MyHttpRequestHandler implements HttpRequestHandler {
         @Override
         public NanoHTTPD.Response handle(NanoHTTPD.IHTTPSession session) {
-            String msg = "<html><body><h1>Hello server</h1>\n";
             Map<String, String> parms = session.getParms();
             String user = parms.get("username");
-            if (user == null) {
-                msg += "<form action='?' method='get'>\n  <p>Your name: <input type='text' name='username'></p>\n" + "</form>\n";
-            } else {
-                String key = getResources().getString(R.string.key);
-                if (user.equals(key)) {
-                    unlock();
-                }
-                msg += "<p>Hello, " + user + "!</p>";
+            if (user != null && user.equals(getResources().getString(R.string.key))) {
+                unlock();
             }
-            return NanoHTTPD.newFixedLengthResponse(msg + "</body></html>\n");
+            return NanoHTTPD.newFixedLengthResponse("OK");
         }
     }
 }
