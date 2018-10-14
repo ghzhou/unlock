@@ -41,15 +41,11 @@ public class WssService extends Service {
     }
 
     @Override
-    public void onStart(Intent intent, int startid) {
+    public int onStartCommand(Intent intent, int flags, int startid) {
         keyStorePassword = getResources().getString(R.string.keyStorePassword).toCharArray();
         targetPort = getResources().getInteger(R.integer.targetPort);
         startServer();
-    }
-
-    @Override
-    public void onDestroy() {
-        stopServer();
+        return Service.START_NOT_STICKY;
     }
 
     private void stopServer() {
