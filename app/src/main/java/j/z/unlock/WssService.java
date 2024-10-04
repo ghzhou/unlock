@@ -102,7 +102,7 @@ public class WssService extends Service {
         return b;
     }
 
-    private void unlock() {
+    private void unlock(String targetIpAddress) {
         try {
             DatagramSocket socket = new DatagramSocket();
             byte[] buffer = new byte[76];
@@ -120,7 +120,6 @@ public class WssService extends Service {
             buffer[68] = 0; //video code type , h264 or Mpeg
             buffer[72] = 0;//video width
             buffer[74] = 0;//video height
-            String targetIpAddress = getResources().getString(R.string.targetIpAddress);
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length,
                     new InetSocketAddress(targetIpAddress, targetPort));
             socket.send(packet);
@@ -196,8 +195,12 @@ public class WssService extends Service {
         public NanoHTTPD.Response handle(NanoHTTPD.IHTTPSession session) {
             Map<String, String> parms = session.getParms();
             String user = parms.get("username");
-            if (user != null && user.equals(getResources().getString(R.string.key))) {
-                unlock();
+            if (user != null) {
+                if (user.equals(getResources().getString(R.string.key))) {
+                    unlock(getResources().getString(R.string.targetIpAddress));
+                } else if (user.equals(getResources().getString(R.string.key1))) {
+                    unlock(getResources().getString(R.string.targetIpAddress1));
+                }
             }
             return NanoHTTPD.newFixedLengthResponse("OK");
         }
