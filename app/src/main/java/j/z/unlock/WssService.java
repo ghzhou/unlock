@@ -1,10 +1,13 @@
 package j.z.unlock;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.IOException;
@@ -26,8 +29,8 @@ import fi.iki.elonen.NanoHTTPD;
 
 public class WssService extends Service {
 
-    private static Random rand = new Random(Integer.MAX_VALUE);
-    private static SimpleHttpServer server = null;
+    private Random rand = new Random(Integer.MAX_VALUE);
+    private SimpleHttpServer server = null;
     private char[] keyStorePassword;
     private String TAG = WssService.class.getName();
     private int targetPort;
@@ -41,15 +44,20 @@ public class WssService extends Service {
     }
 
     @Override
-    public void onStart(Intent intent, int startid) {
+    public int onStartCommand(Intent intent, int flags, int startid) {
         keyStorePassword = getResources().getString(R.string.keyStorePassword).toCharArray();
         targetPort = getResources().getInteger(R.integer.targetPort);
         startServer();
-    }
-
-    @Override
-    public void onDestroy() {
-        stopServer();
+        Intent intent1 = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+        Notification noti =  new NotificationCompat.Builder(this)
+                .setContentTitle("Hello")
+                .setContentText("Hello")
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentIntent(pendingIntent)
+                .build();
+        startForeground(7876, noti);
+        return Service.START_NOT_STICKY;
     }
 
     private void stopServer() {
